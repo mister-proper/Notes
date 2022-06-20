@@ -1,0 +1,51 @@
+.card-notice{
+    &__option{
+        display: flex;
+        align-items: center;
+        height: 30px;
+        border-top: 1px solid black;
+        margin: auto 0 0 0;
+        padding: 3px 6px 2px 6px;
+    }
+    &__choose-color{
+        width: 19px;
+        height: 19px;
+        background-image: url('../../image/palette.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: transparent;
+        cursor: pointer;
+        border: none;
+        outline: none;
+    }
+    &__remove{
+        width: 17px;
+        height: 17px;
+        background-image: url('../../image/trash.svg');
+        background-repeat: no-repeat;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    &__edit{
+        width: 26px;
+        height: 26px;
+        background-image: url('../../image/edit.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    &__btn{
+        position: relative;
+    }
+    &__btn + &__btn {
+        margin-left: 5px;
+    }
+    .option__btn:hover{
+        transform: scale(1.1);
+    }
+}

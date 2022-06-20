@@ -1,0 +1,87 @@
+.sign-up{
+    &__container{
+        min-width: 700px;
+        height: 200px;
+        background-color: #38324a;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 30;
+        padding: 20px;
+    }
+    &__title {
+        font-weight: 600;
+    }
+    &__title span {
+        color: #6565a1;
+        border-bottom: 1px solid #6565a1;
+        cursor: pointer;
+    }
+    &__title span:hover{
+        color: #bbbbbb;
+        border-bottom: 1px solid #bbbbbb;
+    }
+    &__close{
+        display: block;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        font-size: 20px;
+        color:#34323e;
+        border: 1px solid #91a0a1;
+        border-radius: 100%;
+        background-color: #91a0a1;
+        padding-top: 4px;
+        margin: 0 0 0 auto;
+        cursor: pointer;
+    }
+    .form{
+        &__container{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        &__box{
+            display: flex;
+            flex-direction: column;
+            margin: 20px;
+        }
+        &__btn {
+            display: inline-block;
+            max-width: 100px;
+            height: 25px;
+            border: none;
+            border-radius: 5px;
+            background: #448460;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+        &__btn:hover {
+            background-color: #6ab38a;
+        }
+        &_flex-start{
+            justify-content: flex-start;
+        }
+        input{
+            min-width: 200px;
+            background-color: inherit;
+            height: 30px;
+            color: #cdcccc;
+            border: 1px solid gray;
+            margin-right: 10px;
+            padding-left: 5px;
+        }
+    }
+    .cover{
+        width:100%;
+        min-height:100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 21;
+        background-color: black;
+        opacity: 0.65;
+    }
+}
+

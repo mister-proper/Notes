@@ -1,0 +1,40 @@
+
+.card-notice{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1610px;
+    margin: 0 auto;
+    &__inner{
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        height: 100%;
+        background-color: #e3e3e3;
+        box-shadow: 1px 5px 11px grey;
+        border-radius: 10px;
+        margin: 10px 10px 25px 10px;
+        z-index: 20;
+    }
+    &__inner:hover{
+        box-shadow: 0px 0px 1px 2px;
+        transition: opacity 1s;
+    }
+    &__heading{
+        min-height: 27px;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 5px 5px;
+        border-bottom:1px solid gray;
+    }
+    &__paragraph{
+        min-height: 36px;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 5px 5px 15px 5px;
+    }
+    &_active-color {
+        border: 2px dashed black;
+        border-radius: 50%;
+    }
+}
+
