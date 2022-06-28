@@ -1,13 +1,21 @@
-const Sequalize = require('sequelize');
+const mysql = require('mysql');
+const config = require('./config');
 
-const sequalize = new Sequalize('node_users', 'root', 'root', {
-    dialect: 'mysql',
-    host: 'localhost'
+const connection = mysql.createConnection({
+    host: config.HOST,
+    user: config.USER,
+    password: config.PASSWORD,
+    database: config.DATABASE
 })
 
-const Users = require('./Users')(sequalize);
 
-module.exports = {
-    sequalize,
-    Users
-}
+
+connection.connect((error) => {
+    if(error){
+        return console.log(error);
+    }else {
+        return console.log('Успех');
+    }
+})
+
+module.exports = connection;

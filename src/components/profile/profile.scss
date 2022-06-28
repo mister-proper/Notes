@@ -1,4 +1,5 @@
 .profile{
+    position: relative;
     &__container{
         display: flex;
         align-items: center;
@@ -8,6 +9,21 @@
         cursor: pointer;
     }
     &__name:hover{
+        color: white;
+    }
+    &__menu {
+        position: absolute;
+        left: 25%;
+        width: 100px;
+        height: 50px;
+        background-color: rgb(108, 154, 192);
+    }
+    &__list{
+        text-align: center;
+        padding: 5px;
+        cursor: pointer;
+    }
+    &__list:hover{
         color: white;
     }
 }

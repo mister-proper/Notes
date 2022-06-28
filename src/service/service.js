@@ -1,20 +1,16 @@
-//import getLogin  from "../service/router";
+//import response from 'express';
+const bodyParser = require('body-parser')
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3001;
 
-export function submitForm(e){
-    e.preventDefault();
-    let form = document.querySelector('form').elements;
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.json())
 
-    fetch('/save-form', {
-        method : "POST",
-        headers: {
-            'Content-Type': 'application/x-www-from-urlencoded'
-        },
-        body: JSON.stringify({
-            'login': form.login.value,
-            'email': form.email.value,
-            'password': form.password.value
-        })
-    })
-    .then(res => res.text())
-    .then(res => console.log(res))
-}
+const route = require('./routes');
+
+route(app);
+
+app.listen(port, () => {
+    console.log(`App listen on port ${port}`)
+});

@@ -7,9 +7,11 @@ const WrapperContext = (props) => {
     const [filtered, setFiltered] = useState([]);
     const [viewSingUp, setViewSignUp] = useState(false);
     const [viewComeIn, setViewComeIn] = useState(false);
+    const [profile, setProfile] = useState({});
+    const [viewProfile, setViewProfile] = useState(false);
 
     return (
-        <Context.Provider value={{notes, setNotes, filtered, setFiltered, viewSingUp, setViewSignUp, viewComeIn, setViewComeIn}}>
+        <Context.Provider value={{notes, setNotes, filtered, setFiltered, viewSingUp, setViewSignUp, viewComeIn, setViewComeIn,profile, setProfile, viewProfile, setViewProfile}}>
             {props.children}
             {viewSingUp && <SignUp/>}
             {viewComeIn && <ComeIn/>}
