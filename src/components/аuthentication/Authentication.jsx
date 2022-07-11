@@ -1,10 +1,14 @@
-import { useContext } from 'react';
-import Context from '../../context';
+import { useDispatch, useSelector } from 'react-redux';
+import { registrationViewComeIn, registrationViewSignUp } from '../../slice/registrationSlice';
+import { profileSetView, profileSetValue } from '../../slice/profileSlice';
 
 
 
 export const SignUp = () => {
-    const {viewSingUp ,setViewSignUp, viewComeIn, setViewComeIn, setProfile, setViewProfile} = useContext(Context);
+    const dispatch = useDispatch();
+
+    const viewSignUp = useSelector(state => state.registration.viewSignUp);
+	const viewSignIn = useSelector(state => state.registration.viewSignIn);
 
 
     function validForm(input){
@@ -79,11 +83,10 @@ export const SignUp = () => {
         })
         .then(res => res.json())
         .then(res => {
-            console.log(res);
             if(res.status === 200){
-                setProfile(user);
-                setViewSignUp(!viewSingUp);
-                setViewProfile(true);
+                dispatch(profileSetValue(user.login))
+                dispatch(registrationViewSignUp(!viewSignUp))
+                dispatch(profileSetView(true))
                 setCookie('login', user.login, {'max-age': 3600});
             }
         })
@@ -98,10 +101,10 @@ export const SignUp = () => {
         <div className="sign-up">
             <div className="cover"></div>
             <div className="sign-up__container">
-                <div onClick={() => setViewSignUp(!viewSingUp)} className="sign-up__close">X</div>
+                <div onClick={() => dispatch(registrationViewSignUp(!viewSignUp))} className="sign-up__close">X</div>
                 <h2 className="sign-up__title">Регістрація /  <span onClick={() => {
-                                                                            setViewSignUp(!viewSingUp);
-                                                                            setViewComeIn(!viewComeIn);}}>Ввійти</span></h2>
+                                                                            dispatch(registrationViewSignUp(!viewSignUp));
+                                                                            dispatch(registrationViewComeIn(!viewSignIn))}}>Ввійти</span></h2>
                 <form onSubmit={(e) => addUsers(e)} className="sign-up__form form">
                     <div className="form__container">
                         <input type="text" className="form__email" name='email' placeholder="Пошта" required/>
@@ -116,7 +119,10 @@ export const SignUp = () => {
 }
 
 export const ComeIn = () => {
-    const {viewSingUp ,setViewSignUp, viewComeIn, setViewComeIn, setProfile, setViewProfile} = useContext(Context);
+    const dispatch = useDispatch();
+
+    const viewSignUp = useSelector(state => state.registration.viewSignUp);
+	const viewComeIn = useSelector(state => state.registration.viewComeIn);
 
     function setCookie(name, value, options = {}) {
         options = {
@@ -142,7 +148,7 @@ export const ComeIn = () => {
     }
 
 
-    function signIn (e) {
+    function ComeIn (e) {
         e.preventDefault();
 
         const forms = document.querySelector('form').elements;
@@ -159,11 +165,10 @@ export const ComeIn = () => {
         })
         .then(res => res.json())
         .then(res => {
-            console.log(res);
             if(res.status === 200){
-                setProfile(user);
-                setViewComeIn(!viewComeIn);
-                setViewProfile(true);
+                dispatch(profileSetValue(user.login))
+                dispatch(registrationViewComeIn(!viewComeIn))
+                dispatch(profileSetView(true))
                 setCookie('login', user.login, {'max-age': 3600});
             }
         })
@@ -174,11 +179,11 @@ export const ComeIn = () => {
             <div className="cover"></div>
             <div className="sign-up__container">
                 <div onClick={() => 
-                                setViewComeIn(!viewComeIn)} className="sign-up__close">X</div>
+                                dispatch(registrationViewComeIn(!viewComeIn))} className="sign-up__close">X</div>
                 <h2 className="sign-up__title">Ввійти /  <span onClick={() => {
-                                                                        setViewComeIn(!viewComeIn);
-                                                                        setViewSignUp(!viewSingUp);}}>Регістрація</span></h2>
-                <form onSubmit={(e) => signIn(e)} className="sign-up__form form">
+                                                                        dispatch(registrationViewSignUp(!viewSignUp));
+                                                                        dispatch(registrationViewComeIn(!viewComeIn))}}>Регістрація</span></h2>
+                <form onSubmit={(e) => ComeIn(e)} className="sign-up__form form">
                     <div className="form__container form_flex-start">
                         <input type="text" className="form__nickname" name='login' placeholder="Імя користувача" required/>
                         <input type="text" className="form__password" name='password' placeholder="Пароль" required/>
@@ -187,6 +192,19 @@ export const ComeIn = () => {
                 </form>
             </div>
         </div>
+    )
+}
+
+export const ViewAuthentication = () => {
+
+    const viewSignUp = useSelector(state => state.registration.viewSignUp);
+	const viewComeIn = useSelector(state => state.registration.viewComeIn);
+
+    return (
+        <>
+            {viewSignUp && <SignUp/>}
+            {viewComeIn && <ComeIn/>}
+        </>
     )
 }
 

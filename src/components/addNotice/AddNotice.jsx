@@ -1,10 +1,13 @@
-import {useState, useEffect, useContext, useRef} from 'react';
-import Context from '../../context';
+import {useEffect, useRef} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { notesSetText, notesSetNotes} from '../../slice/notesSlice';
 import '../addNotice/AddNotice.scss';
 
 const AddNotice = () => {
-    const {notes, setNotes} = useContext(Context);
-    const [text, setText] = useState({titleValue: '', textValue: ''});
+    const dispatch = useDispatch();
+    const text = useSelector(state => state.notes.text);
+    const notes = useSelector(state => state.notes.notes);
+
     const focusInStartPage = useRef(null);
     const focusNextInput = useRef(null);
 
@@ -12,8 +15,9 @@ const AddNotice = () => {
 
     useEffect(() => {
         const id = generationId();
-        setText(text => ({...text, id}));
+        dispatch(notesSetText({...text, id}))
         focusInStartPage.current.focus();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [notes]);
 
     // Генерація id
@@ -24,8 +28,8 @@ const AddNotice = () => {
 
     function addNotice() { 
         if(checkOnValue() === false) return false;
-        setNotes(notes => [...notes, text]);
-        setText({...text, titleValue: '', textValue: ''}); 
+        dispatch(notesSetNotes([...notes, text]))
+        dispatch(notesSetText({...text, titleValue: '', textValue: ''}))
     }
 
     function showStatusInputs(addClass) {
@@ -69,7 +73,7 @@ const AddNotice = () => {
                                 type="text" 
                                 placeholder='Назва'
                                 value={text.titleValue}
-                                onChange={(e) => setText({...text,titleValue: e.target.value})}
+                                onChange={(e) => dispatch(notesSetText({...text,titleValue: e.target.value}))}
                                 onKeyDown={(e) => {
                                     if(e.key === 'Enter'){
                                         focusNextInput.current.focus();
@@ -87,7 +91,7 @@ const AddNotice = () => {
                                 placeholder='Нова нотатка' 
                                 spellCheck="true"
                                 value={text.textValue}
-                                onChange={(e) => setText({...text,textValue: e.target.value})}
+                                onChange={(e) => dispatch(notesSetText({...text,textValue: e.target.value}))}
                                 onKeyDown={(e) => {
                                     if(e.key === 'Enter'){
                                         addNotice();

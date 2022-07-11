@@ -1,17 +1,26 @@
-import { useEffect, useState, useContext } from "react";
-import Context from '../../context';
+import { useEffect, useState } from "react";
+import { createSelector } from 'reselect'
+import { notesFiltered } from '../../slice/notesSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SearchNotes = () => {
-    const {notes, setFiltered} = useContext(Context);
+    const dispatch = useDispatch();
     const [text, setText] = useState('');
+    const notes = createSelector(
+        (state) => state.notes.notes,
+        (notes) => {
+           return notes.filter(item => item.titleValue.includes(text));
+        }
+    );
+    const Allnotes = useSelector(notes)
+
     console.log('search')
 
     useEffect(() => {
         disaledInputs();
-        localStorage.clear();
-        setFiltered(getFilterdNotes);
+        dispatch(notesFiltered(Allnotes))
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [text, notes]);
+    }, [text, Allnotes]);
 
     function disaledInputs () {
         const inputs = document.querySelectorAll('.add-notice_focus');
@@ -24,8 +33,6 @@ const SearchNotes = () => {
             }
         })
     }
-    
-    const getFilterdNotes = notes.filter(item => item.titleValue.includes(text));
     
     return (
         <div className="search-notes">

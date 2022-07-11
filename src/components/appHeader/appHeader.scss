@@ -1,11 +1,19 @@
 .app-header{
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 50px;
     background-color:#7c9f9f;
     padding: 0 20px;
+    &__clear {
+        font-weight: 600;
+        cursor: pointer;
+    }
+    &__clear:hover{
+        transition: all 0.3s;
+        color: white;
+    }
 }
 
 .registration {

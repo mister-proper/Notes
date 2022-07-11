@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import Context from '../../context';
+import { profileSetView } from '../../slice/profileSlice';
+import { useDispatch} from 'react-redux';
 
 const ProfileMenu = () => {
-    const {setViewProfile} = useContext(Context);
+    const dispatch = useDispatch();
 
     function setCookie(name, value, options = {}) {
         options = {
@@ -37,7 +37,7 @@ const ProfileMenu = () => {
     return (
         <div className="profile__menu">
             <ul className="profile__list">
-                <li onClick={() => {setViewProfile(false);
+                <li onClick={() => {dispatch(profileSetView(false));
                                     deleteCookie('login')}} className="profile__item">Вийти</li>
             </ul>
         </div>

@@ -1,13 +1,14 @@
-import {Color, Button} from '../reusableComponents/ReusableComponents';
-import { useEffect, useContext } from 'react';
-import Context from '../../context';
+import { useEffect } from 'react';
+import { notesSetNotes } from '../../slice/notesSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-import './chooseColor.scss';
+import {Color, Button} from '../reusableComponents/ReusableComponents';
 
 const ChooseColors = ({color, id}) => {
+    const dispatch = useDispatch();
+    const notes = useSelector(state => state.notes.notes);
 
     console.log('choose')
-    const {notes, setNotes} = useContext(Context);
 
     const colors = [
         {color: '#e3e3e3'},
@@ -27,14 +28,15 @@ const ChooseColors = ({color, id}) => {
 
     function changeColor(color, id, target) {
         const newColor = notes.map((item) => {
+            const clonedObj = JSON.parse(JSON.stringify(item));
             if(item.id === id){
-                item.color = color;
+                clonedObj.color = color;
             }
-            return item;
+            return clonedObj;
         })
         removeAllActiveColor(target);
         target.classList.add('card-notice_active-color');
-        setNotes(newColor);
+        dispatch(notesSetNotes(newColor));
     };
 
     function setActiveColorModal(target) {

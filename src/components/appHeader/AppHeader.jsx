@@ -1,9 +1,12 @@
-import { useContext, useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { profileSetView, profileSetValue } from '../../slice/profileSlice';
+import { registrationViewComeIn, registrationViewSignUp } from '../../slice/registrationSlice';
 import Profile from '../profile/Profile';
-import Context from '../../context';
 
 const AppHeader = () => {
-    const {viewProfile, setProfile, setViewProfile} = useContext(Context);
+    const dispatch = useDispatch();
+    const profileView = useSelector(state => state.profile.profileView);
 
     function getCookie(name) {
         let matches = document.cookie.match(new RegExp(
@@ -17,27 +20,33 @@ const AppHeader = () => {
             return;
         }else{
             const userLogin = getCookie('login');
-            setProfile({login: userLogin});
-            setViewProfile(true)
+            dispatch(profileSetValue(userLogin));
+            dispatch(profileSetView(true));
         }
     }, [])
 
     return (
         <div className="app-header">
-            {viewProfile ? <Profile/>: <Registration/>}
+            <p onClick={() => {
+                localStorage.removeItem('items')
+                window.location.reload()}} className="app-header__clear">Видалити всі нотатки</p>
+            {profileView ? <Profile/>: <Registration/>}
         </div>
     )
 }
 
 const Registration = () => {
-    const {viewSingUp ,setViewSignUp, viewComeIn, setViewComeIn, viewProfile} = useContext(Context);
+    const dispatch = useDispatch();
+    const profileView = useSelector(state => state.profile.profileView);
+    const viewSignUp = useSelector(state => state.registration.viewSignUp);
+	const viewSignIn = useSelector(state => state.registration.viewSignIn);
 
     return (
         <div className="registration">
-            <button onClick={() => setViewSignUp(!viewSingUp)} className="registration__sing">Регістрація</button>
+            <button onClick={() => dispatch(registrationViewSignUp(!viewSignUp))} className="registration__sing">Регістрація</button>
             <span>|</span>
-            <button onClick={() => setViewComeIn(!viewComeIn)} className="registration__sing">Ввійти</button>
-            {viewProfile && <Profile/>}
+            <button onClick={() => dispatch(registrationViewComeIn(!viewSignIn))} className="registration__sing">Ввійти</button>
+            {profileView && <Profile/>}
         </div>
     )
 }

@@ -1,10 +1,14 @@
-import { useState, useContext } from 'react';
-import Context from '../../context';
-import '../editNotice/EditNotice.scss';
+import { useState } from 'react';
+import { notesSetNotes } from '../../slice/notesSlice';
+import { editCheckVie } from '../../slice/editNotesSlice';
+import { useDispatch, useSelector } from 'react-redux'; 
 
-const EditNotice = ({edit, setCheckVieEdit}) => {
-    const {notes, setNotes} = useContext(Context);
-    const {titleValue, textValue, id, color} = edit;
+const EditNotice = () => {
+    const dispatch = useDispatch();
+    const notes = useSelector(state => state.notes.notes);
+    const editValues = useSelector(state => state.edit.editValue);
+
+    const {titleValue, textValue, id, color} = editValues;
     const [editValue, setEditValue] = useState({titleValue:titleValue, textValue: textValue, id: id, color: color});
 
     console.log('edit');
@@ -20,8 +24,8 @@ const EditNotice = ({edit, setCheckVieEdit}) => {
             }
             return item;
         })
-        setCheckVieEdit(false);
-        setNotes(newNotes);
+        dispatch(editCheckVie(false));
+        dispatch(notesSetNotes(newNotes));
         document.body.style.overflow= '';
     }
 
@@ -55,7 +59,7 @@ const EditNotice = ({edit, setCheckVieEdit}) => {
                 <div className="edit__btns">
                     <button className='edit__form-btn'
                         onClick={() => {
-                            setCheckVieEdit(false);
+                            dispatch(editCheckVie(false));
                             document.body.style.overflow= '';}}>Відміна</button>
                     <button className='edit__form-btn'
                         onClick={() => compliteEditNotes()} >Зберегти</button>
