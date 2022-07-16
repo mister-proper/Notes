@@ -8,8 +8,8 @@ const EditNotice = () => {
     const notes = useSelector(state => state.notes.notes);
     const editValues = useSelector(state => state.edit.editValue);
 
-    const {titleValue, textValue, id, color} = editValues;
-    const [editValue, setEditValue] = useState({titleValue:titleValue, textValue: textValue, id: id, color: color});
+    const {titleValue, textValue, id, color, fixed} = editValues;
+    const [editValue, setEditValue] = useState({titleValue:titleValue, textValue: textValue, id: id, color: color, fixed: fixed});
 
     console.log('edit');
     function compliteEditNotes (){

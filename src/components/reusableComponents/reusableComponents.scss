@@ -8,39 +8,13 @@
         height: 29px;
         border-radius: 10px;
         background-color: white;
+        gap: 5px;
     }
     &__color{
         width: 25px;
         height: 25px;
         background-repeat: no-repeat;
         background-size: cover;
-    }
-    &__color + &__color{
-        margin-left: 3px;
-    }
-    &__blue{
-        background-image: url('../../image/color/blue.png');
-    }
-    &__red{
-        background-image: url('../../image/color/red.png');
-    }
-    &__white-purple{
-        background-color: #bfa8eb;
-        border-radius: 100%;
-    }
-    &__cyan{
-        background-color: #add;
-        border-radius: 100%;
-    }
-    &__default{
-        background-color: black;
-        border-radius: 100%;
-        text-align: center;
-    }
-    &__default span{
-        display: inline-block;
-        font-weight: 600;
-        color: white;
-        padding: 4px 0px;
+        cursor: pointer;
     }
 }

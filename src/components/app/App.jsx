@@ -4,6 +4,7 @@ import AddNotice from '../addNotice/AddNotice';
 import CardNotice from '../cardNotice/CardNotice';
 import SearchNotes from '../searchNotes/SearchNotes';
 import AppHeader from '../appHeader/AppHeader';
+import FixedNotes from '../fixedNotes/FixedNotes';
 import { ViewAuthentication } from '../аuthentication/Authentication';
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
 			<AppHeader/>
 			<main>
 				<AddNotice/>
+				<FixedNotes/>
 				<CardNotice/>
 				<SearchNotes/>
 			</main>
